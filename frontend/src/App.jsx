@@ -1,16 +1,21 @@
 import { useContext } from "react";
+
 import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import Income from "./pages/Income";
+
+import MainLayout from "./layouts/MainLayout";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 import { AuthContext } from "./context/AuthContext";
 
@@ -20,6 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
         <Route
           path="/login"
           element={<Login />}
@@ -30,30 +36,35 @@ function App() {
           element={<Signup />}
         />
 
+        {/* Protected Layout Routes */}
         <Route
-          path="/dashboard"
           element={
             <ProtectedRoute user={user}>
-              <Dashboard />
+              <MainLayout />
             </ProtectedRoute>
           }
-        />
-        
-        <Route
-          path="/expenses"
-          element={
-            <ProtectedRoute user={user}>
-              <Expenses />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
 
+          <Route
+            path="/expenses"
+            element={<Expenses />}
+          />
+
+          <Route
+            path="/income"
+            element={<Income />}
+          />
+        </Route>
+
+        {/* Default Route */}
         <Route
-          path="/income"
+          path="*"
           element={
-            <ProtectedRoute user={user}>
-              <Income />
-            </ProtectedRoute>
+            <Navigate to="/dashboard" />
           }
         />
       </Routes>
