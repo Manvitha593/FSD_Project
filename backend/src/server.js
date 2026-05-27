@@ -2,12 +2,19 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();
+const initDB = require("./database/initDB");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
+//Initialise DB
+initDB();
+
+//Routes
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Expense Manager API Running");
