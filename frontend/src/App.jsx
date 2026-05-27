@@ -8,8 +8,9 @@ import {
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-
+import Expenses from "./pages/Expenses";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Income from "./pages/Income";
 
 import { AuthContext } from "./context/AuthContext";
 
@@ -34,6 +35,24 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/expenses"
+          element={
+            <ProtectedRoute user={user}>
+              <Expenses />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/income"
+          element={
+            <ProtectedRoute user={user}>
+              <Income />
             </ProtectedRoute>
           }
         />

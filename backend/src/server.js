@@ -4,6 +4,8 @@ const helmet = require("helmet");
 require("dotenv").config();
 const initDB = require("./database/initDB");
 const authRoutes = require("./routes/authRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
+const incomeRoutes = require("./routes/incomeRoutes");
 
 const app = express();
 
@@ -15,6 +17,8 @@ initDB();
 
 //Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/expenses", expenseRoutes);
+app.use("/api/income", incomeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Expense Manager API Running");
